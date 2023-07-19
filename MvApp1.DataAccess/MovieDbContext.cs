@@ -23,30 +23,44 @@ namespace MvApp1.DataAccess
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<WatchedMovie> WatchedMovies { get; set; }
-        public DbSet<MovieCreateDTO> movieCreateDTOs { get; set; }
+        
         public DbSet<Movie> Movies { get; set; }
 
         public DbSet<Category> Categories { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-EFSVO8T1;Initial Catalog=Mv1Dbe;Integrated Security=true;TrustServerCertificate=true");
+            }
             optionsBuilder.EnableSensitiveDataLogging(true);
             base.OnConfiguring(optionsBuilder);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-
+          
 
             modelBuilder.Entity<Movie>().HasMany(x => x.Categories).WithMany(x => x.Movies).
                 UsingEntity("MOVIECATEGORY",
                 l => l.HasOne(typeof(Category)).WithMany().HasForeignKey("CategoryId").HasPrincipalKey(nameof(Category.Id)),
                         r => r.HasOne(typeof(Movie)).WithMany().HasForeignKey("MovieId").HasPrincipalKey(nameof(Movie.Id)),
-                      // r => r.HasOne(typeof(MovieCreateDTO)).WithMany().HasForeignKey("MovieId").HasPrincipalKey(nameof(MovieCreateDTO.Id)),
+                     
             j => j.HasKey("MovieId", "CategoryId"));
 
+            modelBuilder.Entity<WatchedMovie>()
+            .HasKey(wm => new { wm.MovieId, wm.UserId });
+
+            modelBuilder.Entity<WatchedMovie>()
+                .HasOne(wm => wm.Movie)
+                .WithMany()
+                .HasForeignKey(wm => wm.MovieId);
+
+            modelBuilder.Entity<WatchedMovie>()
+                .HasOne(wm => wm.User)
+                .WithMany(u => u.WatchedMovies)
+                .HasForeignKey(wm => wm.UserId);
 
             base.OnModelCreating(modelBuilder);
         }

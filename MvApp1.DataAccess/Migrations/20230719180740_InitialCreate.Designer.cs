@@ -8,11 +8,11 @@ using MvApp1.DataAccess;
 
 #nullable disable
 
-namespace MvApp1.DataAccess.Migrations
+namespace MovieApplication.DataAccess.Migrations
 {
     [DbContext(typeof(MovieDbContext))]
-    [Migration("20230709111340_keyadd")]
-    partial class keyadd
+    [Migration("20230719180740_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,6 +37,47 @@ namespace MvApp1.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("MOVIECATEGORY");
+                });
+
+            modelBuilder.Entity("MovieApplication.Entities.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("ID");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("MovieApplication.Entities.WatchedMovie", b =>
+                {
+                    b.Property<int>("MovieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovieId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WatchedMovie");
                 });
 
             modelBuilder.Entity("MvApp1.Entities.Category", b =>
@@ -69,6 +110,9 @@ namespace MvApp1.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsWatched")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -92,6 +136,30 @@ namespace MvApp1.DataAccess.Migrations
                         .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MovieApplication.Entities.WatchedMovie", b =>
+                {
+                    b.HasOne("MvApp1.Entities.Movie", "Movie")
+                        .WithMany()
+                        .HasForeignKey("MovieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MovieApplication.Entities.User", "User")
+                        .WithMany("WatchedMovies")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Movie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MovieApplication.Entities.User", b =>
+                {
+                    b.Navigation("WatchedMovies");
                 });
 #pragma warning restore 612, 618
         }
