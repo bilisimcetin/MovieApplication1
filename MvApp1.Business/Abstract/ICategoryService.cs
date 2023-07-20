@@ -1,4 +1,5 @@
-﻿using MvApp1.Entities;
+﻿using MovieApplication.Entities;
+using MvApp1.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace MovieApplicationBusiness.Abstract
 
         List<Category> GetAllCategories();
         Category GetCategoryById(int id);
-        Category CreateCategory(Category category);
+        AddCategoryDto CreateCategory(AddCategoryDto addCategoryDto);
         Category UpdateCategory(Category category);
 
         void DeleteCategory(int id);

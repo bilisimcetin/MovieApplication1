@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MovieApplication.Entities;
 using MovieApplicationBusiness.Abstract;
 using MvApp1.Business.Abstract;
 using MvApp1.Entities;
@@ -29,9 +30,17 @@ namespace MovieApplication.Controllers
         { return _categoryService.GetCategoryById(id); }
 
         [HttpPost]
-        public Category Post([FromBody] Category category)
+        public IActionResult Post([FromBody] AddCategoryDto addCategoryDto)
         {
-            return _categoryService.CreateCategory(category);
+            try
+            {
+                var createdCategory = _categoryService.CreateCategory(addCategoryDto);
+                return Ok(createdCategory);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]

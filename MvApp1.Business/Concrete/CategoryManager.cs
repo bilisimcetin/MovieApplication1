@@ -1,4 +1,5 @@
 ﻿using MovieApplication.DataAccess.Abstract;
+using MovieApplication.Entities;
 using MovieApplicationBusiness.Abstract;
 using MvApp1.Entities;
 using System;
@@ -17,16 +18,20 @@ namespace MovieApplicationBusiness.Concrete
         {
             _categoryRepository = categoryRepository;
         }
-        public Category CreateCategory(Category category)
+        public AddCategoryDto CreateCategory(AddCategoryDto addCategoryDto)
         {
-            if (category == null)
+            var category = new Category
             {
-                throw new ArgumentNullException(nameof(category), "Category cannot be null.");
-            }
+                Name = addCategoryDto.Name
+            };
 
-          
+            _categoryRepository.CreateCategory(category);
 
-            return _categoryRepository.CreateCategory(category);
+            return new AddCategoryDto
+            {
+                Id = category.Id ,
+                Name = category.Name
+            };
         }
 
         public void DeleteCategory(int id)

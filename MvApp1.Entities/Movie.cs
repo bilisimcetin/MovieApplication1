@@ -24,9 +24,9 @@ namespace MvApp1.Entities
 
         public bool IsWatched { get; set; }
 
-        public ICollection<Category> Categories { get; set; }
+        public ICollection<Category> Categories { get; set; } = new List<Category>();
 
 
-       
+
     }
 }
