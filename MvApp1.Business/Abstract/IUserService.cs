@@ -12,7 +12,7 @@ namespace MovieApplicationBusiness.Abstract
     {
         User GetUserById(int id);
         List<User> GetAllUsers();
-        User CreateUser(User user);
+        AddUserDto CreateUser(AddUserDto adduserdto);
         User Authenticate(string username, string password);
         User UpdateUser(int id, User user);
         List<Movie> GetWatchedMovies(int userId);

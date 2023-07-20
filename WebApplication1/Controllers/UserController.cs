@@ -31,9 +31,17 @@ namespace MovieApplication.Controllers
 
 
         [HttpPost]
-        public User Post([FromBody] User user)
+        public IActionResult Post([FromBody] AddUserDto addUserDto)
         {
-            return _userService.CreateUser(user);
+            try
+            {
+                var createdUser = _userService.CreateUser(addUserDto);
+                return Ok(createdUser);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut("{id}")]

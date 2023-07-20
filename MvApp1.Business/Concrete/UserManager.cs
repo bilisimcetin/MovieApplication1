@@ -1,4 +1,5 @@
 ﻿using MovieApplication.DataAccess.Abstract;
+using MovieApplication.DataAccess.Concrete;
 using MovieApplication.Entities;
 using MovieApplicationBusiness.Abstract;
 using MvApp1.Entities;
@@ -23,9 +24,26 @@ namespace MovieApplicationBusiness.Concrete
             return _userRepository.Authenticate(username, password);
         }
 
-        public User CreateUser(User user)
+        public AddUserDto CreateUser(AddUserDto addUserDto)
         {
-            return _userRepository.CreateUser(user);
+            var user = new User
+            {
+                Username = addUserDto.Username,
+                Password= addUserDto.Password,
+                FullName= addUserDto.FullName,
+            };
+            _userRepository.CreateUser(user);
+            return new AddUserDto
+            {
+                Id = user.Id,
+                Username = user.Username,
+                Password = user.Password,
+                FullName = user.FullName,
+
+
+
+
+            };
         }
 
         public List<User> GetAllUsers()
