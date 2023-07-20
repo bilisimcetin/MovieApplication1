@@ -19,10 +19,7 @@ namespace MovieApplicationBusiness.Concrete
             _userRepository = userRepository;
         }
 
-        public User Authenticate(string username, string password)
-        {
-            return _userRepository.Authenticate(username, password);
-        }
+       
 
         public AddUserDto CreateUser(AddUserDto addUserDto)
         {
@@ -88,8 +85,28 @@ namespace MovieApplicationBusiness.Concrete
         }
 
 
+        public User Authenticate(string username, string password)
+        {
+            // Kullanıcı adı ve şifre ile kullanıcıyı doğrula
+            var user = _userRepository.GetUserByUsernameAndPassword(username, password);
+
+            // Kullanıcı bulunamadıysa veya şifre eşleşmediyse null döndür
+            if (user == null || user.Password != password)
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+
+
+
+
     }
     
+
+
 
 
 }

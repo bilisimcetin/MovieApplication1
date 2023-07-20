@@ -86,5 +86,15 @@ namespace MovieApplication.DataAccess.Concrete
             _movieContext.SaveChanges();
             return user;
         }
+
+
+
+        public User GetUserByUsernameAndPassword(string username, string password)
+        {
+            // Kullanıcı adı ve şifre ile kullanıcıyı veritabanından al
+            return _movieContext.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
+        }
+
+
     }
 }

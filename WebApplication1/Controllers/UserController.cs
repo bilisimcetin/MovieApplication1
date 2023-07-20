@@ -87,6 +87,21 @@ namespace MovieApplication.Controllers
             }
         }
 
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] UserLoginDto userLoginDto)
+        {
+            var user = _userService.Authenticate(userLoginDto.Username, userLoginDto.Password);
+
+            if (user == null)
+            {
+                return Unauthorized(); // 401 Unauthorized dönüş kodu
+            }
+
+            // Kullanıcı başarıyla oturum açtı, burada gerekli işlemleri yapabilirsiniz
+
+            return Ok(user); // 200 OK dönüş kodu
+        }
+
 
 
     }

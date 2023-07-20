@@ -15,6 +15,7 @@ namespace MovieApplication.DataAccess.Abstract
         User CreateUser(User user);
         User Authenticate(string username, string password);
         User UpdateUser(User user);
+        User GetUserByUsernameAndPassword(string username, string password);
         List<Movie> GetWatchedMovies(int userId);
         void MovieAsWatched(int userId, int movieId);
     }
