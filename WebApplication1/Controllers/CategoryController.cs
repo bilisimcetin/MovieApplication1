@@ -50,12 +50,5 @@ namespace MovieApplication.Controllers
             _categoryService.DeleteCategory(id);
         }
 
-        [HttpPut]
-
-        public Category Put([FromBody] Category category)
-        {
-
-            return _categoryService.UpdateCategory(category);
-        }
     }
 }

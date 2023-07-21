@@ -52,12 +52,18 @@ namespace MvApp1.Controllers
             }
         }
 
-        [HttpPut]
-
-        public Movie Put([FromBody]Movie movie)
+        [HttpPut("{id}")]
+        public IActionResult UpdateMovie(int id, [FromBody] MovieCreateDTO updatedMovie)
         {
-
-            return _movieService.UpdateMovie(movie);
+            try
+            {
+                _movieService.UpdateMovie(id, updatedMovie);
+                return Ok("Movie updated successfully.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
@@ -83,29 +89,7 @@ namespace MvApp1.Controllers
         }
 
 
-        //[HttpPost("{categoryId}")]
-        //public IActionResult Post(int categoryId, [FromBody] Movie movie)
-        //{
-            //try
-          //  {
-                
-              //  var category = _categoryRepository.GetCategoryById(categoryId);
-
-                //var createdMovie = _movieService.CreateMovie(movie);
-
-                //if (category != null && createdMovie != null)
-                //{
-                  //  _movieService.AddMovieToCategory(createdMovie.Id, categoryId);
-                //}
-
-               // return Ok(createdMovie);
-            //}
-            //catch (Exception ex)
-            //{
-              //  Console.WriteLine(ex.InnerException);
-                //return BadRequest(ex.Message);
-            //}
-        //}
+        
 
     }
 }

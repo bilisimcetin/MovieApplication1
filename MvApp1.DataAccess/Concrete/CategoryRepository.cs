@@ -51,12 +51,6 @@ namespace MovieApplication.DataAccess.Concrete
             return _movieContext.Categories.Find(id);
         }
 
-        public Category UpdateCategory(Category category)
-        {
-            _movieContext.Categories.Update(category);
-
-            _movieContext.SaveChanges();
-            return category;
-        }
+        
     }
 }

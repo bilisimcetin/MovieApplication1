@@ -15,9 +15,9 @@ namespace MvApp1.Business.Abstract
 
         Movie CreateMovie(MovieCreateDTO movieCreateDTO);
 
-        Movie UpdateMovie(Movie movie);
+        Movie UpdateMovie(int id, MovieCreateDTO updatedMovie);
 
-        Movie AddMovieToCategory(int movieId, int categoryId);
+        
         void UpdateIsWatched(int movieId, bool isWatched);
         void DeleteMovie(int id);
     }

@@ -53,12 +53,10 @@ namespace MvApp1.DataAccess.Concrete
 
         public Movie UpdateMovie(Movie movie)
         {
-            
-                _movieContext.Movies.Update(movie);
 
-                _movieContext.SaveChanges();
-                return movie;
-            
+            _movieContext.Entry(movie).State = EntityState.Modified;
+            _movieContext.SaveChanges();
+            return movie;
         }
 
         public void UpdateIsWatched(int movieId, bool isWatched)
@@ -79,19 +77,7 @@ namespace MvApp1.DataAccess.Concrete
             }
         }
 
-        public Movie AddMovieToCategory(int movieId, int categoryId)
-        {
-            var movie = GetMovieById(movieId);
-            var category = _movieContext.Categories.Find(categoryId);
-
-            if (movie != null && category != null)
-            {
-                movie.Categories.Add(category);
-                _movieContext.SaveChanges();
-            }
-
-            return movie;
-        }
+        
 
     }
 }

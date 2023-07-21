@@ -14,8 +14,7 @@ namespace MovieApplicationBusiness.Abstract
         List<Category> GetAllCategories();
         Category GetCategoryById(int id);
         AddCategoryDto CreateCategory(AddCategoryDto addCategoryDto);
-        Category UpdateCategory(Category category);
-
+        
         void DeleteCategory(int id);
 
     }

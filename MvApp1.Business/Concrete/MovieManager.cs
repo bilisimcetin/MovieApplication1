@@ -65,9 +65,20 @@ namespace MvApp1.Business.Concrete
             throw new Exception("id can not be less than 1");
         }
 
-        public Movie UpdateMovie(Movie movie)
+        public Movie UpdateMovie(int id, MovieCreateDTO updatedMovie)
         {
-            return _movieRepository.UpdateMovie(movie);
+            var existingMovie = _movieRepository.GetMovieById(id);
+            if (existingMovie == null)
+            {
+                throw new Exception("Movie not found.");
+            }
+
+            existingMovie.Name = updatedMovie.Name;
+            existingMovie.Description = updatedMovie.Description;
+            existingMovie.IsWatched = updatedMovie.IsWatched;
+
+            _movieRepository.UpdateMovie(existingMovie);
+            return existingMovie;
         }
 
 
@@ -85,23 +96,8 @@ namespace MvApp1.Business.Concrete
             }
         }
 
-        public Movie AddMovieToCategory(int movieId, int categoryId)
-        {
-            Movie movie = _movieRepository.GetMovieById(movieId);
-            Category category = _categoryRepository.GetCategoryById(categoryId);
-
-            if (movie != null && category != null)
-            {
-                movie.Categories.Add(category);
-                _movieRepository.UpdateMovie(movie);
-            }
-            else
-            {
-                throw new Exception("Movie or category not found.");
-            }
-
-            return movie;
-        }
+       
+        
 
 
 

@@ -49,9 +49,7 @@ namespace MovieApplicationBusiness.Concrete
             return _categoryRepository.GetCategoryById(id);
         }
 
-        public Category UpdateCategory(Category category)
-        {
-            return _categoryRepository.UpdateCategory(category);
-        }
+      
+
     }
 }
