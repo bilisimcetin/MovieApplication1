@@ -17,8 +17,9 @@ namespace MvApp1.Business.Abstract
 
         Movie UpdateMovie(int id, MovieCreateDTO updatedMovie);
 
-        
-        void UpdateIsWatched(int movieId, bool isWatched);
+
+        void MarkAsWatched(int id);
         void DeleteMovie(int id);
+
     }
 }

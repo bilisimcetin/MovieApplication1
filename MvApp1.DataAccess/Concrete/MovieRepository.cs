@@ -59,20 +59,13 @@ namespace MvApp1.DataAccess.Concrete
             return movie;
         }
 
-        public void UpdateIsWatched(int movieId, bool isWatched)
+        public void UpdateIsWatched(int id , bool isWatched)
         {
-            var movie = _movieContext.Movies.FirstOrDefault(m => m.Id == movieId);
-            if (movie != null)
-            {
-                if (isWatched)
-                {
-                    movie.IsWatched = true;
-                }
-                else
-                {
-                    movie.IsWatched = false;
-                }
+            var movie = _movieContext.Movies.FirstOrDefault(m => m.Id == id);
 
+            if (movie != null )
+            {
+                movie.IsWatched = isWatched;
                 _movieContext.SaveChanges();
             }
         }

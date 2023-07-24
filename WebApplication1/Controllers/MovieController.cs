@@ -74,22 +74,26 @@ namespace MvApp1.Controllers
             _movieService.DeleteMovie(id);
         }
 
-        [HttpPut("{id}/iswatched")]
-        public IActionResult UpdateIsWatched(int id, bool isWatched)
+        [HttpPut("{id}/watched")]
+        public IActionResult MarkAsWatched(int id)
         {
             try
             {
-                _movieService.UpdateIsWatched(id, isWatched);
+                _movieService.MarkAsWatched(id);
                 return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                // Diğer olası hatalar için burada uygun işlemler yapılabilir.
+                return StatusCode(500, "An error occurred.");
             }
         }
 
 
-        
 
     }
 }

@@ -82,23 +82,17 @@ namespace MvApp1.Business.Concrete
         }
 
 
-        public void UpdateIsWatched(int movieId, bool isWatched)
+        public void MarkAsWatched(int id)
         {
-            Movie movie = _movieRepository.GetMovieById(movieId);
-            if (movie != null)
+            var movie = _movieRepository.GetMovieById(id);
+            if (movie == null)
             {
-                movie.IsWatched = isWatched;
-                _movieRepository.UpdateMovie(movie);
+                // Burada gerekli hata işlemleri yapılabilir, örneğin bir Exception fırlatılabilir.
+                throw new ArgumentException("Movie not found.");
             }
-            else
-            {
-                throw new Exception("Movie not found.");
-            }
+
+            _movieRepository.UpdateIsWatched(id, true);
         }
-
-       
-        
-
 
 
     }

@@ -20,7 +20,7 @@ namespace MvApp1.DataAccess.Abstract
         Movie UpdateMovie(Movie movie);
 
         
-        void UpdateIsWatched(int movieId, bool isWatched);
+        void UpdateIsWatched(int id, bool isWatched);
         void DeleteMovie(int id);
        
     }

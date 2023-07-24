@@ -19,10 +19,10 @@ namespace MvApp1.Entities
         public string Name { get; set; } 
 
 
-        public string Description { get; set; } 
+        public string Description { get;  set; } 
 
 
-        public bool IsWatched { get; set; }
+        public bool IsWatched { get;set; }
 
         public ICollection<Category> Categories { get; set; } = new List<Category>();
 
