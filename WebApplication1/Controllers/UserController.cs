@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MovieApplication.Entities;
 using MovieApplicationBusiness.Abstract;
+using MvApp1.Business.Abstract;
 using MvApp1.Entities;
 
 namespace MovieApplication.Controllers
@@ -45,12 +46,12 @@ namespace MovieApplication.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateUser(int id, [FromBody] User user)
+        public IActionResult UpdateUser(int id, [FromBody] AddUserDto updatedUserDto)
         {
             try
             {
-                var updatedUser = _userService.UpdateUser(id, user);
-                return Ok(updatedUser);
+                _userService.UpdateUser(id, updatedUserDto);
+                return Ok("User updated successfully.");
             }
             catch (Exception ex)
             {

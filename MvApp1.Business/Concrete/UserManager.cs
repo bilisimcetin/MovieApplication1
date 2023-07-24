@@ -66,22 +66,21 @@ namespace MovieApplicationBusiness.Concrete
             _userRepository.MovieAsWatched(userId, movieId);
         }
 
-        public User UpdateUser(int id, User user)
+        public User UpdateUser(int id, AddUserDto updatedUserDto)
         {
             var existingUser = _userRepository.GetUserById(id);
             if (existingUser == null)
             {
-           
-                throw new Exception("Not found user.");
+                throw new Exception("User not found.");
             }
 
-            existingUser.Username = user.Username;
-            existingUser.Password = user.Password;
-            existingUser.FullName = user.FullName;
-           
+            existingUser.Username = updatedUserDto.Username;
+            existingUser.Password = updatedUserDto.Password;
+            existingUser.FullName = updatedUserDto.FullName;
+
 
             _userRepository.UpdateUser(existingUser);
-            return user;
+            return existingUser;
         }
 
 

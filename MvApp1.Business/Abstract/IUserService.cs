@@ -14,7 +14,7 @@ namespace MovieApplicationBusiness.Abstract
         List<User> GetAllUsers();
         AddUserDto CreateUser(AddUserDto adduserdto);
         User Authenticate(string username, string password);
-        User UpdateUser(int id, User user);
+        User UpdateUser(int id , AddUserDto updatedUserDto);
         List<Movie> GetWatchedMovies(int userId);
         void MovieAsWatched(int userId, int movieId);
 
